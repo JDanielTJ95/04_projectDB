@@ -37,11 +37,18 @@ export class CreateProductDto {
     @ApiProperty()
     @IsString({ each: true})
     @IsArray()
-    sizes!: string[];
+    type!: string[];
+
+    //? type prueba
+    @ApiProperty()
+    @IsIn(['perfiles','tubulares','laminas','consumibles','herrajes','cerrajeria','herramientas','pedidos'])
+    category!: string;
 
     @ApiProperty()
-    @IsIn(['men','women','kid','unisex'])
-    gender!: string;
+    @IsString({each: true})
+    @IsArray()
+    @IsOptional()
+    specs?: string[];
     
     @ApiProperty()
     @IsString({each: true})

@@ -59,23 +59,69 @@ export class ProductsService {
 
   async findAll(paginationDto: PaginationDto) {
 
-    const {limit = 10, offset = 0} = paginationDto;
+    const {limit = 10, offset = 0, category = ''} = paginationDto;
 
     const products = await this.productRepository.find({
       take: limit,
       skip: offset,
       relations: {
         images: true,
-      }
+      },
+      order: {
+        id: 'ASC'
+      },
+      where: category ? [{ category }, { category: ''}] : {},
     });
 
-    return products.map( product => ({
-      ...product,
-      images: product.images?.map( img => img.url )
-    }));
+    const totalProducts = await this.productRepository.count({
+      where: category ? [{ category }, { category: '' }] : {},
+    });
+
+    return {
+      count: totalProducts,
+      pages: Math.ceil(totalProducts / limit),
+      products: products.map((product) => ({
+        ...product,
+        images: product.images?.map( img => img.url ),
+      })),
+    };
+
+    // return products.map( product => ({
+    //   ...product,
+    //   images: product.images?.map( img => img.url )
+    // }));
 
   }
+  /**
+  async findAll2(paginationDto: PaginationDto) {
+    const { limit = 10, offset = 0, type = '' } = paginationDto;
 
+    const products = await this.productRepository.find({
+      take: limit,
+      skip: offset,
+      relations: {
+        images: true,
+      },
+      order: {
+        id: 'ASC',
+      },
+      where: type ? [{ type }, { type: 'unisex' }] : {},
+    });
+
+    const totalProducts = await this.productRepository.count({
+      where: type ? [{ type }, { type: 'unisex' }] : {},
+    });
+
+    return {
+      count: totalProducts,
+      pages: Math.ceil(totalProducts / limit),
+      products: products.map((product) => ({
+        ...product,
+        images: product.images.map((img) => img.url),
+      })),
+    };
+  }
+  */
   async findOne(term: string) {
 
     let product: Product | null;

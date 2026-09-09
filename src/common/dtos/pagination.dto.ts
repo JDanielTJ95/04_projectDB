@@ -19,4 +19,11 @@ export class PaginationDto {
     @Min(0)
     @Type(() => Number)
     offset?: number;
+
+    @ApiProperty({
+    default: '',
+    description: 'Filter results by category',
+    })
+    @IsOptional()
+    category?: 'perfiles'|'tubulares'|'laminas'|'consumibles'|'herrajes'|'cerrajeria'|'herramientas'|'pedidos';
 }

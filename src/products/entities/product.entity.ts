@@ -12,7 +12,7 @@ export class Product {
         uniqueItems: true
     })
     @PrimaryGeneratedColumn('uuid')
-    id!: string;
+    id!: string; //
 
     @ApiProperty({
         example: 'T-Producto tienda',
@@ -22,7 +22,7 @@ export class Product {
     @Column('text', {
         unique: true,
     })
-    title!: string
+    title!: string //
 
     @ApiProperty({
         example: 99.99,
@@ -32,7 +32,7 @@ export class Product {
     @Column('float', {
         default: 0
     })
-    price!: number;
+    price!: number; //
 
     @ApiProperty({
         example: 'Introducing the Tesla Chill Collection. The Men Chill Crew Neck Sweatshirt has a premium',
@@ -43,7 +43,7 @@ export class Product {
         type: 'text',
         nullable: true
     })
-    description?: string;
+    description?: string; //
 
     @ApiProperty({
         example: 'T-producto_slug',
@@ -53,7 +53,7 @@ export class Product {
     @Column('text', {
         unique: true
     })
-    slug!: string
+    slug!: string //
 
     @ApiProperty({
         example: 10,
@@ -63,20 +63,40 @@ export class Product {
     @Column('int', {
         default: 0
     })
-    stock!: number;
+    stock!: number; //
+
+    // @ApiProperty({
+    //     example: ['XL','XXL','M'],
+    //     description: 'Product Price',
+    // })
+    // @Column('text', {
+    //     array: true
+    // })
+    // sizes!: string[];
 
     @ApiProperty({
-        example: ['XL','XXL','M'],
-        description: 'Product Price',
+        example: ['ptr','perfil_ventana','angulo','solera'],
+        description: 'Product type',
     })
-    @Column('text', {
-        array: true
+    @Column({
+        type: 'text',
+        nullable: false
     })
-    sizes!: string[];
+    category!: string;
 
     @ApiProperty()
-    @Column('text')
-    gender!: string;
+    @Column('text', {
+        array: true,
+        default: []
+    })
+    type?: string[];
+
+    @ApiProperty()
+    @Column('text', {
+        array: true,
+        default: []
+    })
+    specs!: string[];
 
     @ApiProperty()
     @Column('text', {
