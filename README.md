@@ -10,4 +10,4 @@
 4. Cambiar las variables de entorno
 5. levantar la base de datos ```docker compose up -d```
 6. Levantar ```yarn start:dev```
-8. Ejecutar SEED ```http://localhost:3000/api/seed```
+8. Ejecutar SEED para generar los datos de la tabla ```http://localhost:3000/api/seed```
